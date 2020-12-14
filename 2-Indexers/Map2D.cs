@@ -8,11 +8,13 @@ namespace Indexers
     /// <inheritdoc cref="IMap2D{TKey1,TKey2,TValue}" />
     public class Map2D<TKey1, TKey2, TValue> : IMap2D<TKey1, TKey2, TValue>
     {
+        private Dictionary<(TKey1, TKey2), TValue> dict;
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.NumberOfElements" />
         public int NumberOfElements
         {
             get
             {
+                this.dict.Count();
                 throw new NotImplementedException();
             }
         }
@@ -20,14 +22,16 @@ namespace Indexers
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.this" />
         public TValue this[TKey1 key1, TKey2 key2]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return this.dict[ (key1, key2)]; }
+            set { this.dict[(key1,key2)]=value; }
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.GetRow(TKey1)" />
         public IList<Tuple<TKey2, TValue>> GetRow(TKey1 key1)
         {
-            throw new NotImplementedException();
+            
+            return this.dict.ToList((dict.Keys.ElementAt(1),/*dict[(key1,*/ dict.Keys.ElementAt(2))/*]))*/);
+            
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.GetColumn(TKey2)" />
